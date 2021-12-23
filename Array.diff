@@ -1,0 +1,23 @@
+import java.util.*;
+public class Kata {
+
+  public static int[] arrayDiff(int[] a, int[] b) {
+    ArrayList<Integer> q=new ArrayList<Integer>();
+    for(int i=0;i<a.length;i++){
+      boolean found_twin=false;
+      for(int j=0;j<b.length;j++){
+        if(a[i]==b[j]){
+          found_twin=true;
+        }
+      }
+      if(!found_twin){
+        q.add(a[i]);
+      }
+    }
+    int[] ret=new int[q.size()];
+    for(int w=0;w<ret.length;w++){
+      ret[w]=q.get(w);
+    }
+    return ret;
+  }
+}
