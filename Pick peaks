@@ -1,0 +1,48 @@
+import java.util.Map;
+import java.util.HashMap;
+import java.util.List;
+import java.util.ArrayList;
+
+public class PickPeaks {
+    
+    public static Map<String,List<Integer>> getPeaks(int[] arr) {
+        Map<String,List<Integer>> ret=new HashMap<String,List<Integer>>();
+        ret.put("pos",new ArrayList<Integer>());
+        ret.put("peaks",new ArrayList<Integer>());
+        if(arr.length==0||arr.length==1||arr.length==2){
+          return ret;
+        }
+        boolean peaking=false;
+        boolean pos_p=false;
+        int prev=arr[0];
+        int hold_plateau_beginning=arr[0]; // for dealing with plateaus
+        for(int i=1;i<arr.length;i++){
+          prev=arr[i-1]; int curr=arr[i];
+          if(curr>prev){
+            if(peaking){
+              hold_plateau_beginning=i;
+            } else {
+              peaking=true;
+              hold_plateau_beginning=i;
+            }
+            pos_p=false;
+          } else if(curr==prev){
+            pos_p=true;
+          } else {
+            // curr<prev
+            if(peaking){
+              if(pos_p){
+                ret.get("pos").add(hold_plateau_beginning);
+                ret.get("peaks").add(prev);
+                pos_p=false;
+              } else {
+                ret.get("pos").add(i-1);
+                ret.get("peaks").add(prev);  
+              }
+            }
+            peaking=false;
+          }
+        }
+        return ret;
+    }
+}
