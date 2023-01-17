@@ -1,0 +1,36 @@
+//  don't allocate memory for the results array
+//  assign values to the provided results array
+//  set length pointer as size of results array
+//  after calculations return the results array
+
+#include <stddef.h>
+#include <math.h>
+#include <stdio.h>
+
+typedef unsigned long long ull;
+
+ull countDigits(ull x){
+  ull count=0;
+  while(x!=0){
+    x=x/10;
+    count++;
+  }
+  return count;
+}
+
+ull *sum_dig_pow(ull a, ull b, ull *results, size_t *length) {
+    ull i=0;
+    ull y;
+    for(y=a;y<=b;y++){
+      ull size=countDigits(y); ull temp=y;
+      ull ctr=0;
+      while(temp!=0){
+        ctr+=pow((temp%10),size);
+        size--; temp=temp/10;
+      }
+      if(ctr==y){results[i++]=y;}
+    }
+    ull q;
+    *length=(size_t)i;
+    return results;
+}
